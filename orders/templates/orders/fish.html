@@ -1,0 +1,43 @@
+{% extends 'orders/header.html' %} {% block content %}
+<div class="row justify-content-center" style=" margin: 10px;">
+      <h5>Table Selected: <a class="navbar-brand" href="/tables"><span class="badge badge-light border px-5 rounded-pill" id="customer-table"></span></a></h5>
+</div>
+
+<div class="container">
+    <div class="content my-4 px-4">
+        <div class="card rounded-0 shadow">
+            <div class="card-body">
+
+                <h4 style="margin:10px; text-align:center;"> Choose one of the Fish dishes &#128031 </h4>
+                <h4 style="margin:10px; text-align:center;"> 请选择鱼种类 &#128031 </h4>
+                <h4 style="margin:10px; text-align:center;"> Sila pilih jenis ikan &#128031 </h4>
+                <div class="row justify-content-center">
+
+                    <table class="table" style="border: 2px solid black">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">Fish/鱼/Ikan</th>
+                                <th scope="col">Fried/煎/Goreng</th>
+                                <th scope="col">Steam/蒸/Rebus</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dish in dishes %}
+                            <tr>
+                                <th>{{dish.dish_name}}</th>
+                                <td><button type="button" class="btn btn-success" onclick="add_to_cart({item_description:'Fried/煎/Goreng - {{dish.dish_name}}' , price:{{dish.fried_price}}})"><strong>RM {{dish.fried_price}}</strong></button></td>
+                                <td><button type="button" class="btn btn-success" onclick="add_to_cart({item_description:'Steam/蒸/Rebus - {{dish.dish_name}}' , price:{{dish.steam_price}}})"><strong>RM {{dish.steam_price}}</strong></button></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+

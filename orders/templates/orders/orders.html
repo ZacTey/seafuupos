@@ -1,0 +1,79 @@
+{% extends 'orders/header.html' %} {% load custom_tags %} {% load humanize %} {% load has_group %} {% block content %}
+
+<div class="container-fluid">
+    {% if request.user|has_group:"kitchen" %}
+    <p>User: kitchen</p>
+    {% endif %}
+    {% if request.user|has_group:"admin" %}
+    <p>User: admin</p>
+    {% endif %}
+    <div class="content my-3 px-4">
+        <div class="card shadow rounded-0">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    {% if request.user|has_group:"kitchen" %}
+                    <h2> List of Orders 全部订单</h2>
+                        <fieldset class="pb-2 mb-3 border w-100">
+                            <legend class="px-3 w-auto ml-3">Instruction 指示:</legend>
+                            <ul>
+                                <li>Click the Order Row <small><i>(Yellow Row)</i></small> to mark it as delivered</li>
+                                <li>点击 <small><i>(黄色)</i></small> 完成出菜</li>
+                            </ul>
+                        </fieldset>
+                    {% else %}
+                        <h2> List of Orders 全部订单</h2>
+                    {% endif %}
+
+                    {% if request.user|has_group:"admin" %}
+                        <fieldset class="pb-2 mb-3 border w-100">
+                            <legend class="px-3 w-auto ml-3">Instruction 指示:</legend>
+                            <ul>
+                                <li>Click the Order Row <small><i>(Red Row)</i></small> to mark it as pending delivery</li>
+                                <li>点击 <small><i>(红色)</i></small> 指示出菜</li>
+                            </ul>
+                        </fieldset>
+                    {% endif %}
+
+                    <table class="table" id="order-tbl">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Order ID 编号</th>
+                                <th scope="col">Table No 桌子</th>
+                                <th scope="col">Ordered by 员工</th>
+                                <th scope="col">Date 时间</th>
+                                <th scope="col">Order 订单</th>
+                                <th scope="col">Amount 总数</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders_table">
+                            {% for row in rows %} {% if row.delivered %}
+                            <tr class="table-success">
+                                {% else %}
+                                <tr class="table-danger mark-as-complete">
+                                    {% endif %}
+                                    <td>{{row.id}}</td>
+                                    <td>{{row.table}}</td>
+                                    <td>{{row.username}}</td>
+                                    <td>{{row.time_of_order}}</td>
+                                    <td>
+                                        <ul>
+                                            {% for item in row.order|format_cart %}
+                                            <li>{{item|format_cart_item}}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td>RM {{row.price|floatformat:2|intcomma}}</td>
+                                </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'orders/header.html' %} {% block content %}
+
+
+
+<div class="container-fluid">
+    <div class="content my-3 px-2">
+        <div class="card shadow rounded-0">
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <h4>Check all Tables Status 查看全部桌子</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center" style=" margin: 10px;">
+            <h5>Table Selected: <a class="navbar-brand" href="/tables"><span class="badge badge-light border px-5 rounded-pill" id="customer-table"></span></a></h5>
+        </div>
+        <tbody>
+        {% for table in tables %}
+            <p></p>
+            <div class="row justify-content-center">
+
+                <button type="button" class="btn btn-primary btn-block btn-lg rounded-pill" onclick="table_select({{table.table_no}})">
+                    Table Number {{table.table_no}}: {{table.table_name}}</button>
+
+            </div>
+
+        {% endfor %}
+        </tbody>
+    </div>
+</div>
+
+{% endblock %}

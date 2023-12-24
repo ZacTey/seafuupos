@@ -1,0 +1,74 @@
+{% extends 'orders/header.html' %} {% block content %}
+
+<!doctype html>
+
+<html lang="en">
+
+<body>
+<div class="container">
+    <div class="content my-3">
+        <div class="card rounded-0 shadow">
+            <div class="card-body">
+                <div class="row justify-content-center" style="margin-top:20px;">
+
+                    <ul>
+                        <button onclick="getLocation()" onclick="pan()">Fetch GPS Location</button>
+                        <p id="location_mark"></p>
+                        <li>Below is your current login GPS location.</li>
+                        <li>You need to allow browser to read your location.</li>
+                    </ul>
+
+                </div>
+                <div id="map-canvas"></div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+var x = document.getElementById("location_mark");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+user_lat = position.coords.latitude
+user_long = position.coords.longitude
+
+function showPosition(position) {
+  x.innerHTML = "Latitude: " + position.coords.latitude +
+  "<br>Longitude: " + position.coords.longitude;
+}
+</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script>
+var map;
+function initialize() {
+    var mapOptions = {
+         zoom: 8,
+         center: new google.maps.LatLng(-34.397, 150.644),
+         mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'),
+  mapOptions);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+    function pan() {
+        var panPoint = new google.maps.LatLng(user_lat, user_long);
+        map.panTo(panPoint)
+     }
+</script>
+
+
+</body>
+</html>
+{% endblock %}
