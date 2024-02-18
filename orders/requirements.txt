@@ -2,5 +2,5 @@ Django==2.2.7
 django-tinymce4-lite==1.7.5
 pytz==2019.3
 sqlparse==0.3.0
-jsmin==2.2.3
+jsmin==3.0.0
 
