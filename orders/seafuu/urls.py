@@ -19,7 +19,7 @@ from django.conf import settings # new
 from  django.conf.urls.static import static #new
 
 urlpatterns = [
-    path("", include("orders.urls")),
+    path("", include("urls")),
     path("admin/", admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
 ]
