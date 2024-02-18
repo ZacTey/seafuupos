@@ -60,7 +60,7 @@ TINYMCE_DEFAULT_CONFIG = {
 # Application definition
 
 INSTALLED_APPS = [
-    'orders.apps.OrdersConfig',
+    'apps.OrdersConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,8 +68,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    'tinymce',
-    'whitenoise.runserver_nostatic',
+    'tinymce'
 ]
 
 MIDDLEWARE = [
